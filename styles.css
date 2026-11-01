@@ -1,0 +1,523 @@
+/* ============================================================
+   alex tt — тёмная сцена
+   Токены и стили по .jay/design/DESIGN.md
+   ============================================================ */
+
+:root {
+  /* палитра */
+  --background: #0A0A0B;
+  --foreground: #F5F5F2;
+  --muted-foreground: #A8A8B0;
+  --border: #2A2A2E;
+  --card: #121214;
+  --muted: #141416;
+  --primary: #C8FF3E;
+  --primary-foreground: #0A0A0B;
+  --primary-hover: #D1FF6B;
+  --glow: 0 0 28px rgba(200, 255, 62, 0.25);
+
+  /* форма и моушен */
+  --radius: 6px;
+  --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+  --t-hover: 200ms;
+  --t-press: 140ms;
+  --rise: 16px;
+
+  /* сетка */
+  --header-h: 64px;
+  --pad: 20px;
+  --section-gap: 88px;
+}
+
+/* ---------- база ---------- */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: calc(var(--header-h) + 12px);
+}
+
+body {
+  margin: 0;
+  background: var(--background);
+  color: var(--foreground);
+  font-family: "Manrope", system-ui, sans-serif;
+  font-size: 17px;
+  line-height: 1.6;
+  font-weight: 400;
+  -webkit-font-smoothing: antialiased;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+::selection {
+  background: var(--primary);
+  color: var(--primary-foreground);
+}
+
+:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 3px;
+}
+
+.container {
+  max-width: 1120px;
+  margin-inline: auto;
+  padding-inline: var(--pad);
+}
+
+.skip-link {
+  position: absolute;
+  top: -56px;
+  left: 16px;
+  z-index: 10;
+  padding: 10px 16px;
+  border-radius: var(--radius);
+  background: var(--primary);
+  color: var(--primary-foreground);
+  font: 600 14px/1 "Manrope", system-ui, sans-serif;
+  text-decoration: none;
+}
+
+.skip-link:focus-visible {
+  top: 12px;
+}
+
+/* ---------- шапка ---------- */
+
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 5;
+  height: var(--header-h);
+  background: rgba(10, 10, 11, 0.82);
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+}
+
+.header-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  height: 100%;
+}
+
+.wordmark {
+  font-family: "Unbounded", sans-serif;
+  font-weight: 600;
+  font-size: 16px;
+  letter-spacing: -0.02em;
+  color: var(--foreground);
+  text-decoration: none;
+}
+
+.site-nav {
+  display: flex;
+  gap: 14px;
+}
+
+.site-nav a {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--muted-foreground);
+  text-decoration: none;
+  transition: color var(--t-hover) var(--ease-out);
+}
+
+/* ---------- герой ---------- */
+
+.hero {
+  position: relative;
+  display: flex;
+  align-items: center;
+  min-height: calc(100vh - var(--header-h));
+  min-height: calc(100svh - var(--header-h));
+  overflow: hidden;
+}
+
+.hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: url("assets/hero.jpg") center / cover no-repeat;
+  opacity: 0.55;
+}
+
+.hero::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(10, 10, 11, 0.35) 0%,
+    rgba(10, 10, 11, 0) 32%,
+    rgba(10, 10, 11, 0) 48%,
+    var(--background) 96%
+  );
+}
+
+.hero-inner {
+  position: relative;
+  z-index: 1;
+  padding-block: 96px;
+}
+
+.hero-kicker {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  margin: 0;
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 1.4;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+}
+
+.beam {
+  width: 40px;
+  height: 2px;
+  background: var(--primary);
+  box-shadow: var(--glow);
+}
+
+.hero-title {
+  margin: 24px 0 40px;
+  font-family: "Unbounded", sans-serif;
+  font-weight: 800;
+  font-size: clamp(60px, 14vw, 184px);
+  line-height: 0.94;
+  letter-spacing: -0.02em;
+  white-space: nowrap;
+}
+
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+/* ---------- кнопки ---------- */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 48px;
+  padding: 0 28px;
+  border: 1px solid transparent;
+  border-radius: var(--radius);
+  font-family: "Manrope", system-ui, sans-serif;
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 1;
+  text-decoration: none;
+  cursor: pointer;
+  transition:
+    background-color var(--t-hover) var(--ease-out),
+    border-color var(--t-hover) var(--ease-out),
+    color var(--t-hover) var(--ease-out),
+    box-shadow var(--t-hover) var(--ease-out),
+    transform var(--t-press) var(--ease-out);
+}
+
+.btn:active {
+  transform: scale(0.97);
+}
+
+.btn-primary {
+  background: var(--primary);
+  color: var(--primary-foreground);
+}
+
+.btn-ghost {
+  background: transparent;
+  border-color: var(--border);
+  color: var(--foreground);
+}
+
+.btn-sm {
+  min-height: 44px;
+  padding: 0 20px;
+  font-size: 14px;
+}
+
+.btn-lg {
+  min-height: 56px;
+  padding: 0 32px;
+  font-size: 16px;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .btn-primary:hover {
+    background: var(--primary-hover);
+    box-shadow: var(--glow);
+  }
+
+  .btn-ghost:hover {
+    border-color: var(--primary);
+    color: var(--primary);
+  }
+}
+
+/* ---------- разделы ---------- */
+
+.section {
+  margin-top: var(--section-gap);
+}
+
+.section-head h2 {
+  margin: 0 0 clamp(24px, 3vw, 44px);
+  font-family: "Unbounded", sans-serif;
+  font-weight: 600;
+  font-size: clamp(28px, 4vw, 44px);
+  line-height: 1.08;
+  letter-spacing: -0.02em;
+}
+
+.lead {
+  margin: 0;
+  max-width: 60ch;
+  font-size: clamp(18px, 2vw, 22px);
+  line-height: 1.6;
+}
+
+.text-link {
+  color: var(--muted-foreground);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.text-link:hover {
+  color: var(--foreground);
+}
+
+/* ---------- треклист ---------- */
+
+.tracklist {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.track {
+  display: grid;
+  grid-template-columns: 96px 1fr auto;
+  gap: 24px;
+  align-items: center;
+  padding-block: 24px;
+  border-top: 1px solid var(--border);
+}
+
+.track:last-child {
+  border-bottom: 1px solid var(--border);
+}
+
+.track-cover {
+  width: 96px;
+  aspect-ratio: 1;
+  object-fit: cover;
+  border-radius: var(--radius);
+  transition: transform 300ms var(--ease-out);
+}
+
+.track-num {
+  display: block;
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 1.4;
+  font-variant-numeric: tabular-nums;
+  color: var(--muted-foreground);
+}
+
+.track-title {
+  margin: 6px 0 0;
+  font-family: "Unbounded", sans-serif;
+  font-weight: 600;
+  font-size: clamp(28px, 4vw, 44px);
+  line-height: 1.15;
+  color: var(--primary);
+}
+
+.track-caption {
+  margin: 8px 0 0;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--muted-foreground);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .track:hover {
+    border-top-color: var(--primary);
+  }
+
+  .track:hover .track-cover {
+    transform: scale(1.045);
+  }
+}
+
+/* ---------- сообщество ---------- */
+
+.community-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 32px;
+}
+
+/* ---------- подвал ---------- */
+
+.site-footer {
+  margin-top: var(--section-gap);
+  border-top: 1px solid var(--border);
+  padding-block: 32px;
+}
+
+.footer-inner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 16px 32px;
+}
+
+.footer-brand {
+  display: flex;
+  align-items: baseline;
+  gap: 16px;
+}
+
+.footer-copy {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--muted-foreground);
+}
+
+.footer-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.footer-nav a {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--muted-foreground);
+  text-decoration: none;
+}
+
+.footer-nav a:hover,
+.footer-nav a:focus-visible {
+  color: var(--foreground);
+}
+
+/* ---------- десктоп ---------- */
+
+@media (min-width: 760px) {
+  :root {
+    --pad: 48px;
+    --section-gap: 136px;
+  }
+
+  .site-nav {
+    gap: 24px;
+  }
+
+  .site-nav a {
+    font-size: 15px;
+  }
+}
+
+/* ---------- мобильный трек ---------- */
+
+@media (max-width: 759px) {
+  .track {
+    grid-template-columns: 1fr;
+    gap: 16px;
+    justify-items: start;
+    padding-block: 20px;
+  }
+
+  .track-cover {
+    width: 84px;
+  }
+
+  .track .btn {
+    width: 100%;
+  }
+}
+
+/* ---------- моушен ---------- */
+
+@media (prefers-reduced-motion: no-preference) {
+  .anim-rise {
+    animation: rise-in 650ms var(--ease-out) both;
+  }
+
+  .anim-1 {
+    animation-delay: 120ms;
+  }
+
+  .anim-2 {
+    animation-delay: 210ms;
+  }
+
+  .anim-3 {
+    animation-delay: 300ms;
+  }
+
+  .js .reveal.is-visible {
+    transition:
+      opacity 600ms var(--ease-out),
+      transform 600ms var(--ease-out);
+  }
+}
+
+@keyframes rise-in {
+  from {
+    opacity: 0;
+    transform: translateY(var(--rise));
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* скролл-появление: работает только когда скрипт поставил .js,
+   без JS всё видно сразу */
+.js .reveal {
+  opacity: 0;
+  transform: translateY(var(--rise));
+}
+
+.js .reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    transition-duration: 1ms !important;
+    transition-delay: 0ms !important;
+    animation-duration: 1ms !important;
+    animation-iteration-count: 1 !important;
+  }
+}
